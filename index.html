@@ -3,83 +3,115 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LabelForge — carrier labels → DYMO spine stock, fully offline</title>
-<meta name="description" content="LabelForge is a free, signed & notarized macOS app that reformats USPS, UPS, FedEx and DHL shipping labels onto DYMO 99019 spine stock — with true barcode passthrough, fully offline."/>
+<title>LabelForge — shipping labels, reforged for the spine</title>
+<meta name="description" content="LabelForge is a free, signed &amp; notarized macOS app that reformats USPS, UPS, FedEx and DHL shipping labels onto DYMO 99019 spine stock — fully offline, with true barcode passthrough. A Multiclass Studio product."/>
+<link rel="canonical" href="https://labelforge.co/"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
-<meta property="og:title" content="LabelForge"/>
+<meta property="og:title" content="LabelForge — a Multiclass Studio product"/>
 <meta property="og:description" content="Reformat carrier shipping labels onto DYMO 99019 spine stock. Native macOS. Fully offline. Barcodes passed through as pixels — never regenerated."/>
-<meta property="og:image" content="assets/hero_label.png"/>
+<meta property="og:url" content="https://labelforge.co/"/>
+<meta property="og:image" content="https://labelforge.co/assets/hero_label.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root{
-    --bg:#0c0c0e; --panel:#141417; --line:#26262b; --ink:#ebebee;
-    --mut:#96969e; --acc:#c8352b; --acc2:#e0483d; --ok:#3fae6b;
+    --void:#0a0a0f; --void-light:#111118; --surface:#151520; --surface-light:#1e1e2a;
+    --border:#2a2a38; --border-light:#3a3a48;
+    --parchment:#e8e5e0; --parchment-dim:#a8a5a0; --muted:#6a6a78;
+    --gold:#c8a24e; --gold-bright:#e8c060;
+    --forge:#e86040; --forge-bright:#f07a5c;
+    --signal:#22c55e;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  html{scroll-behavior:smooth;background:var(--void)}
+  body{background:var(--void);color:var(--parchment);
+    font:16px/1.65 "Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased}
-  a{color:var(--acc2);text-decoration:none}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  ::selection{background:var(--forge);color:var(--void)}
+  a{color:var(--forge-bright);text-decoration:none}
+  a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  .dot-grid{background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);
+    background-size:24px 24px}
 
-  header{padding:22px 0;border-bottom:1px solid var(--line)}
-  header .wrap{display:flex;align-items:center;gap:12px}
-  header img{width:34px;height:34px;border-radius:8px}
-  header .name{font-weight:800;letter-spacing:.02em;font-size:17px}
-  header .tag{color:var(--mut);font-size:12.5px;margin-left:auto;text-align:right}
+  header{border-bottom:1px solid var(--border);background:rgb(10 10 15/.85);
+    position:sticky;top:0;backdrop-filter:blur(10px);z-index:10}
+  header .wrap{display:flex;align-items:center;gap:14px;padding-top:16px;padding-bottom:16px}
+  header img{width:30px;height:30px;border-radius:7px}
+  .brand{font-weight:800;letter-spacing:.02em;font-size:16px;color:var(--parchment)}
+  .brand .co{color:var(--muted);font-weight:500}
+  .studio{margin-left:auto;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted)}
+  .studio a{color:var(--gold);font-weight:700}
+  .studio a:hover{color:var(--gold-bright)}
 
-  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;
-    padding:84px 0 72px}
-  h1{font-size:clamp(34px,5vw,52px);line-height:1.08;font-weight:800;letter-spacing:-.015em}
-  h1 .red{color:var(--acc2)}
-  .sub{color:var(--mut);font-size:18px;margin:20px 0 34px;max-width:34em}
-  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#fff;
-    font-weight:700;font-size:16.5px;padding:15px 26px;border-radius:12px;
-    transition:transform .12s ease, background .12s ease}
-  .cta:hover{background:var(--acc2);transform:translateY(-1px)}
+  .heroband{position:relative;border-bottom:1px solid var(--border);overflow:hidden}
+  .heroband .grid{position:absolute;inset:0}
+  .heroband .fade{position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 0%,transparent 55%,var(--void) 100%)}
+  .hero{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:56px;
+    align-items:center;padding:88px 0 76px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+    border:1px solid var(--border-light);border-radius:999px;padding:7px 14px;
+    background:var(--void-light);margin-bottom:26px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forge)}
+  h1{font-size:clamp(34px,5vw,54px);line-height:1.06;font-weight:800;letter-spacing:-.02em}
+  h1 .forge{color:var(--forge)}
+  .sub{color:var(--parchment-dim);font-size:18px;margin:22px 0 34px;max-width:33em}
+  .sub em{color:var(--parchment);font-style:italic}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--forge);color:var(--void);
+    font-weight:800;font-size:16.5px;padding:15px 28px;border-radius:12px;
+    transition:transform .12s ease,background .12s ease}
+  .cta:hover{background:var(--forge-bright);transform:translateY(-1px);color:var(--void)}
   .cta svg{width:18px;height:18px}
-  .meta{margin-top:16px;color:var(--mut);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 18px}
-  .meta span::before{content:"✓ ";color:var(--ok)}
+  .meta{margin-top:18px;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 18px}
+  .meta span::before{content:"✓ ";color:var(--signal)}
 
   .labelframe{justify-self:center;position:relative}
-  .labelframe img{display:block;width:250px;border-radius:6px;
-    box-shadow:0 2px 6px rgb(0 0 0/.55), 0 24px 64px rgb(0 0 0/.5), 0 0 0 1px var(--line);
-    background:#fff}
+  .labelframe img{display:block;width:248px;border-radius:6px;background:#fff;
+    box-shadow:0 2px 6px rgb(0 0 0/.6),0 28px 72px rgb(0 0 0/.55),0 0 0 1px var(--border-light)}
   .labelframe::after{content:"694 × 2250 px · 300 dpi · DYMO 99019";
-    position:absolute;left:50%;transform:translateX(-50%);bottom:-34px;white-space:nowrap;
-    color:var(--mut);font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em}
+    position:absolute;left:50%;transform:translateX(-50%);bottom:-36px;white-space:nowrap;
+    color:var(--muted);font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}
 
-  .rule{border:none;border-top:2px dashed var(--line);margin:24px 0 0}
-
-  section{padding:64px 0}
-  h2{font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--mut);
-    font-weight:700;margin-bottom:28px}
+  section{padding:68px 0}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);
+    font-weight:700;margin-bottom:30px}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
-  .card h3{font-size:16.5px;margin-bottom:8px;font-weight:700}
-  .card p{color:var(--mut);font-size:14.5px}
-  .card .k{color:var(--acc2)}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;
+    transition:border-color .15s ease}
+  .card:hover{border-color:var(--border-light)}
+  .card h3{font-size:16.5px;margin-bottom:9px;font-weight:700;color:var(--forge-bright)}
+  .card p{color:var(--parchment-dim);font-size:14.5px}
+  .card em{color:var(--parchment);font-style:italic}
 
   .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .step{border:1px solid var(--line);border-radius:14px;padding:22px;background:transparent}
-  .step .n{font:700 12px/1 ui-monospace,Menlo,monospace;color:var(--acc2);letter-spacing:.1em;
-    margin-bottom:10px}
-  .step h3{font-size:16px;margin-bottom:6px}
-  .step p{color:var(--mut);font-size:14.5px}
+  .step{border:1px solid var(--border);border-radius:14px;padding:24px;background:var(--void-light)}
+  .step .n{font:700 11.5px/1 ui-monospace,Menlo,monospace;color:var(--gold);
+    letter-spacing:.12em;margin-bottom:12px}
+  .step h3{font-size:16px;margin-bottom:7px;color:var(--parchment)}
+  .step p{color:var(--parchment-dim);font-size:14.5px}
 
-  .install{background:var(--panel);border:1px solid var(--line);border-radius:14px;
-    padding:26px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+  .rule{border:none;border-top:2px dashed var(--border);margin:0}
+
+  .install{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:28px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between}
+  .install b{display:block;margin-bottom:5px;font-size:17px}
   .install .t{max-width:38em}
-  .install .t b{display:block;margin-bottom:4px}
-  .install .t span{color:var(--mut);font-size:14.5px}
-  .sha{font:11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mut);
-    word-break:break-all;margin-top:10px}
+  .install .t span{color:var(--parchment-dim);font-size:14.5px}
+  .sha{font:11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);
+    word-break:break-all;margin-top:12px}
 
-  footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--mut);font-size:13px}
-  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+  footer{border-top:1px solid var(--border);padding:38px 0 52px;color:var(--muted);font-size:13.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between;align-items:baseline}
+  footer .mc{color:var(--parchment-dim)}
+  footer .mc a{color:var(--gold);font-weight:700}
+  footer .mc a:hover{color:var(--gold-bright)}
 
-  @media (max-width:820px){
-    .hero{grid-template-columns:1fr;gap:64px;padding-top:56px}
+  @media (max-width:840px){
+    .hero{grid-template-columns:1fr;gap:70px;padding-top:60px}
     .labelframe{justify-self:start}
   }
 </style>
@@ -88,65 +120,72 @@
 
 <header>
   <div class="wrap">
-    <img src="assets/icon.png" alt="" width="34" height="34"/>
-    <div class="name">LabelForge</div>
-    <div class="tag">carrier label → spine stock<br/>native · offline · free</div>
+    <img src="assets/icon.png" alt=""/>
+    <div class="brand">LabelForge<span class="co">.co</span></div>
+    <div class="studio">a <a href="https://multiclass.studio">Multiclass Studio</a> product</div>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="hero">
-    <div>
-      <h1>Shipping labels,<br/>reforged for the <span class="red">spine</span>.</h1>
-      <p class="sub">
-        Drop a USPS, UPS, FedEx or DHL label — LabelForge reformats it onto
-        DYMO&nbsp;99019 spine stock (2-5/16″ × 7-1/2″), preserving the <em>real</em>
-        barcodes so the label stays mailable. Print at 100%, stick, ship.
-      </p>
-      <a class="cta" href="https://github.com/xtamtamx/labelforge-site/releases/latest/download/LabelForge.dmg">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download for macOS
-      </a>
-      <div class="meta">
-        <span>Free</span><span>macOS 13+</span><span>Universal (Apple&nbsp;Silicon + Intel)</span>
-        <span>Signed &amp; notarized</span><span>No account, no network</span>
+<div class="heroband">
+  <div class="grid dot-grid"></div>
+  <div class="fade"></div>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Free · native macOS · fully offline</div>
+        <h1>Shipping labels,<br/><span class="forge">reforged</span> for the spine.</h1>
+        <p class="sub">
+          Drop a USPS, UPS, FedEx or DHL label — LabelForge reformats it onto
+          DYMO&nbsp;99019 spine stock (2-5/16″ × 7-1/2″), preserving the <em>real</em>
+          barcodes so the label stays mailable. Print at 100%, stick, ship.
+        </p>
+        <a class="cta" href="https://github.com/xtamtamx/labelforge-site/releases/latest/download/LabelForge.dmg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download for macOS
+        </a>
+        <div class="meta">
+          <span>Free forever</span><span>macOS 13+</span><span>Universal (Apple&nbsp;Silicon + Intel)</span>
+          <span>Signed &amp; notarized</span><span>No account, no network</span>
+        </div>
+      </div>
+      <div class="labelframe">
+        <img src="assets/hero_label.png" alt="A reformatted spine label: service banner, addresses, tracking barcode and branding, rendered edge-to-edge" width="248"/>
       </div>
     </div>
-    <div class="labelframe">
-      <img src="assets/hero_label.png" alt="A reformatted spine label: service banner, addresses, tracking barcode and branding, rendered edge-to-edge" width="250"/>
-    </div>
   </div>
+</div>
 
-  <hr class="rule"/>
-
+<div class="wrap">
   <section>
     <h2>Why it's safe to trust with real mail</h2>
     <div class="cards">
       <div class="card">
-        <h3><span class="k">Barcode passthrough.</span></h3>
-        <p>Barcodes are cropped from your source label as pixels — never regenerated
-        from the printed digits. Carrier barcodes encode routing and service data that
-        isn't in the visible number; rebuilding one can get mail mis-sorted. LabelForge
-        keeps the exact encoded payload intact.</p>
+        <h3>Barcode passthrough</h3>
+        <p>Barcodes are cropped from your source label as pixels — <em>never regenerated</em>
+        from the printed digits. Carrier barcodes encode routing and service data that isn't
+        in the visible number; rebuilding one can get mail mis-sorted. LabelForge keeps the
+        exact encoded payload intact.</p>
       </div>
       <div class="card">
-        <h3><span class="k">Fully offline.</span></h3>
+        <h3>Fully offline</h3>
         <p>Sandboxed with <em>no network entitlement at all</em> — your labels, addresses
         and tracking numbers never leave your Mac. Nothing to sign up for, nothing phoned home.</p>
       </div>
       <div class="card">
-        <h3><span class="k">All the majors.</span></h3>
-        <p>USPS, UPS, FedEx and DHL. PDFs (including multi-page batches — it finds the
-        label page), PNGs and JPEGs. Addresses, service and tracking are prefilled for
-        you to confirm; every field stays editable.</p>
+        <h3>All the majors</h3>
+        <p>USPS, UPS, FedEx and DHL. PDFs (including multi-page batches — it finds the label
+        page), PNGs and JPEGs. Addresses, service and tracking are prefilled for you to
+        confirm; every field stays editable.</p>
       </div>
       <div class="card">
-        <h3><span class="k">Native &amp; tiny.</span></h3>
+        <h3>Native &amp; tiny</h3>
         <p>Swift + SwiftUI on Apple's Vision, PDFKit and Accelerate frameworks. A ~2&nbsp;MB
         universal binary — no Electron, no runtime, no dependencies.</p>
       </div>
     </div>
   </section>
+
+  <hr class="rule"/>
 
   <section>
     <h2>How it works</h2>
@@ -181,7 +220,8 @@
 
 <footer>
   <div class="wrap">
-    <div>LabelForge — signed &amp; notarized for macOS. Always test-scan one label per carrier before a mail run.</div>
+    <div class="mc">LabelForge is a <a href="https://multiclass.studio">Multiclass Studio</a> product.
+      Built on Long Island, NY. Always test-scan one label per carrier before a mail run.</div>
     <div><a href="https://github.com/xtamtamx/labelforge-site/releases">All releases</a></div>
   </div>
 </footer>
