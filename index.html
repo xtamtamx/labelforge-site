@@ -119,6 +119,11 @@
   .fnote{color:var(--parchment-dim);font-size:14px;margin-top:18px;max-width:46em}
   .fnote em{color:var(--parchment);font-style:italic}
 
+  .demo video{display:block;width:100%;border-radius:14px;border:1px solid var(--border);
+    box-shadow:0 24px 64px rgb(0 0 0/.45)}
+  .demo .try{margin-top:14px;font-size:14px;color:var(--parchment-dim)}
+  .demo .try a{font-weight:700}
+
   .install{background:var(--surface);border:1px solid var(--border);border-radius:16px;
     padding:28px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between}
   .install b{display:block;margin-bottom:5px;font-size:17px}
@@ -227,6 +232,15 @@
         (those build as a ship-to + return pair) — then print straight from the app (⌘P) or export a print-ready PDF / 300 dpi PNG. It even warns
         you if the barcode lands too small to scan reliably.</p></div>
     </div>
+  </section>
+
+  <section class="demo">
+    <h2>Sixty seconds, start to printed</h2>
+    <video controls muted playsinline loop preload="metadata" poster="assets/demo-poster.jpg">
+      <source src="assets/demo.mp4" type="video/mp4"/>
+    </video>
+    <p class="try">No label handy? <a href="assets/sample-media-mail-label.pdf" download>Download the
+    sample label</a> (dummy addresses, not valid postage) and drop it in.</p>
   </section>
 
   <section>
