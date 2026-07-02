@@ -109,6 +109,16 @@
 
   .rule{border:none;border-top:2px dashed var(--border);margin:0}
 
+  .formats{display:flex;gap:26px;align-items:flex-start;overflow-x:auto;padding:6px 2px 14px}
+  .formats figure{margin:0;flex:none;text-align:center}
+  .formats img{display:block;border-radius:4px;background:#fff;
+    box-shadow:0 1px 4px rgb(0 0 0/.5),0 12px 32px rgb(0 0 0/.4),0 0 0 1px var(--border-light)}
+  .formats figcaption{margin-top:12px;font-size:13px;font-weight:700;color:var(--parchment)}
+  .formats figcaption span{display:block;font-weight:400;font-size:11.5px;color:var(--muted);
+    margin-top:2px;letter-spacing:.04em}
+  .fnote{color:var(--parchment-dim);font-size:14px;margin-top:18px;max-width:46em}
+  .fnote em{color:var(--parchment);font-style:italic}
+
   .install{background:var(--surface);border:1px solid var(--border);border-radius:16px;
     padding:28px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between}
   .install b{display:block;margin-bottom:5px;font-size:17px}
@@ -148,9 +158,9 @@
         <div class="eyebrow"><span class="dot"></span> Free · native macOS · fully offline</div>
         <h1>Shipping labels,<br/><span class="forge">reforged</span> for the spine.</h1>
         <p class="sub">
-          Drop a USPS, UPS, FedEx or DHL label — LabelForge reformats it onto
-          DYMO&nbsp;99019 spine stock (2-5/16″ × 7-1/2″), preserving the <em>real</em>
-          barcodes so the label stays mailable. Print at 100%, stick, ship.
+          Drop a USPS, UPS, FedEx or DHL label — LabelForge reformats it onto your
+          label stock, from DYMO spine to 4&nbsp;×&nbsp;6 thermal, preserving the
+          <em>real</em> barcodes so the label stays mailable. Hit ⌘P, stick, ship.
         </p>
         <a class="cta" href="https://github.com/xtamtamx/labelforge-site/releases/latest/download/LabelForge.dmg">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -219,6 +229,25 @@
   </section>
 
   <section>
+    <h2>One label in, five stocks out</h2>
+    <div class="formats">
+      <figure><img src="assets/fmt-dymo-99019.png" width="120" alt="Spine label render"/>
+        <figcaption>DYMO 99019<span>Spine · 2-5/16 × 7-1/2″</span></figcaption></figure>
+      <figure><img src="assets/fmt-dymo-30256.png" width="120" alt="Shipping label render"/>
+        <figcaption>DYMO 30256<span>Shipping · 2-5/16 × 4″</span></figcaption></figure>
+      <figure><img src="assets/fmt-thermal-4x6.png" width="208" alt="4 by 6 thermal label render"/>
+        <figcaption>4 × 6 Thermal<span>Rollo / Zebra</span></figcaption></figure>
+      <figure><img src="assets/fmt-dymo-99012.png" width="182" alt="Address label pair render"/>
+        <figcaption>DYMO 99012<span>Address pair · 3-1/2 × 1-4/10″</span></figcaption></figure>
+      <figure><img src="assets/fmt-avery-5163.png" width="208" alt="Avery label pair render"/>
+        <figcaption>Avery 5163<span>Sheet pair · 4 × 2″</span></figcaption></figure>
+    </div>
+    <p class="fnote">Shown at true relative scale. The small stocks build a
+    <em>two-label pair</em> — ship-to + tracking, and a return-address + branding
+    label — and in-app printing (⌘P) outputs both at actual size.</p>
+  </section>
+
+  <section>
     <div class="install">
       <div class="t">
         <b>Install in ten seconds</b>
@@ -236,7 +265,7 @@
   <div class="wrap">
     <div class="mc">LabelForge is a <a href="https://multiclass.studio">Multiclass Studio</a> product.
       Built on Long Island, NY. Always test-scan one label per carrier before a mail run.</div>
-    <div><a href="https://github.com/xtamtamx/labelforge-site/releases">All releases</a></div>
+    <div><a href="https://github.com/xtamtamx/labelforge-site/releases">v1.2.0 · all releases</a></div>
   </div>
 </footer>
 
